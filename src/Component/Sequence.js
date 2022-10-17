@@ -75,7 +75,7 @@ export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
             <h2>Sequence</h2>
             {!theButton && <button onClick={connect}>Connexion {loader && <Spinner animation="border" role="status" size="sm" />}</button>}
             <p></p>
-            {isConnect && <button onClick={openSequence}>Ouvrir Sequence</button>}
+            { <button onClick={openSequence}>Ouvrir Sequence</button>}
         </div>
     )
 
