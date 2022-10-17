@@ -9,17 +9,15 @@ function App() {
   const [get, setGet] = useState()
   const [set, setSet] = useState()
   const [isConnect, setIsConnect] = useState()
-  const [addr, setAddress] = useState()
-  const [contract, setContract] = useState()
+  // const [addr, setAddress] = useState()
+  // const [contract, setContract] = useState()
 
 
   return (
     <div className="App">
-      <Init setSet={setSet} setGet={setGet} setAddress={setAddress} setContract={setContract} setIsConnect={setIsConnect} />
-    <Sequence setSet={setSet}  setGet={setGet} setIsConnect={setIsConnect}/>
-          <Dapp get={get} set={set} isConnect={isConnect}></Dapp>
-          <p>Adresse du contrat: {contract}</p>
-          <p>Adresse connectée: {addr}</p>
+      {/* <Init setSet={setSet} setGet={setGet} setAddress={setAddress} setContract={setContract} setIsConnect={setIsConnect} /> */}
+      <Sequence setSet={setSet} setGet={setGet} setIsConnect={setIsConnect} isConnect={isConnect} />
+      <Dapp get={get} set={set} isConnect={isConnect}></Dapp>
     </div>
   );
 }

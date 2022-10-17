@@ -21,6 +21,7 @@ export default function Dapp({ get, set, isConnect }) {
     async function data() {
         const adata = await get.data()
         setTheData(adata)
+        event()
     }
 
     //changer la valeur de data
@@ -30,7 +31,6 @@ export default function Dapp({ get, set, isConnect }) {
             // await window.ethereum.request({ method: 'eth_requestAccounts' })
             const transaction = await set.setData(theNewData)
             await transaction.wait()
-            data()
         }
         catch {
             console.log("La transaction a échoué !")
@@ -40,6 +40,12 @@ export default function Dapp({ get, set, isConnect }) {
         }
     }
 
+    function event() {
+        set.on("NewData", (newData) => {
+            data()
+        })
+    }
+
     //récupérer la valeur dans l'input
     function inputValue(e) {
         setTheNewData(e.target.value)
@@ -47,16 +53,16 @@ export default function Dapp({ get, set, isConnect }) {
 
     return (
         <div>
-            <h1>Data</h1>
             <div >
                 <div>
-                    <p>Data : {theData}</p>
+                    <h6>Donnée actuelle:</h6>
+                    <p>{theData}</p>
                 </div>
                 <div>
                     <Button variant="primary" onClick={newData} disabled={theButton}>
-                        Envoyer une nouvelle valeur {loader && <Spinner animation="border" role="status" size="sm" />}
+                        Envoyer une nouvelle donnée {loader && <Spinner animation="border" role="status" size="sm" />}
                     </Button>
-                    <p><input placeholder='Nouvelle valeur' onChange={inputValue}></input></p>
+                    <p><input placeholder='Nouvelle donnée' onChange={inputValue}></input></p>
                 </div>
             </div>
         </div>

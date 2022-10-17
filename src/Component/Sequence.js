@@ -4,7 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { ethers } from "ethers";
 import Data from '../artifacts/contracts/Data.sol/Data.json';
 
-export default function Sequence ({ setSet, setGet, setIsConnect }) {
+export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
     const [loader, setLoader] = useState()
     const [theButton, setButton] = useState();
     let wallet;
@@ -75,7 +75,7 @@ export default function Sequence ({ setSet, setGet, setIsConnect }) {
             <h2>Sequence</h2>
             {!theButton && <button onClick={connect}>Connexion {loader && <Spinner animation="border" role="status" size="sm" />}</button>}
             <p></p>
-            <button onClick={openSequence}>Ouvrir Sequence</button>
+            {isConnect && <button onClick={openSequence}>Ouvrir Sequence</button>}
         </div>
     )
 
