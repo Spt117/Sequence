@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import Spinner from 'react-bootstrap/Spinner';
 import { ethers } from "ethers";
 import Data from '../artifacts/contracts/Data.sol/Data.json';
+import '../App.css';
 
 export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
     const [loader, setLoader] = useState()
-    const [theButton, setButton] = useState();
+    const [theButton, setButton] = useState()
+    const [network, setNetwork] = useState()
+    const networks = [{ id: 5, adresse: "0x3522F5E6a744C16dd019E9Ec314AD45868dccFc6" }, { id: 11155111, adresse: "0xfFedfCe0Fec7342D57E12dB5b120Fd506A0C6181" }, { id: 80001, adresse: "0x4Aec1F50164e9B09EcD966495993a47fb0B80467" }, { id: 137, adresse: "" }]
     let wallet;
 
     useEffect(() => {
@@ -60,11 +63,11 @@ export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
 
     function initialisation() {
         const wallet = sequence.getWallet()
-        const provider = wallet.getProvider(80001)
-        const signer = wallet.getSigner(80001)
+        const provider = wallet.getProvider(networks[network].id)
+        const signer = wallet.getSigner(networks[network].id)
         console.log(signer)
-        const getContract = new ethers.Contract("0x4Aec1F50164e9B09EcD966495993a47fb0B80467", Data.abi, provider)
-        const setContract = new ethers.Contract("0x4Aec1F50164e9B09EcD966495993a47fb0B80467", Data.abi, signer)
+        const getContract = new ethers.Contract(networks[network].adresse, Data.abi, provider)
+        const setContract = new ethers.Contract(networks[network].adresse, Data.abi, signer)
         setSet(setContract)
         setGet(getContract)
         setIsConnect(true)
@@ -72,10 +75,17 @@ export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
 
     return (
         <div>
-            <h2>Sequence</h2>
-            {!theButton && <button onClick={connect}>Connexion {loader && <Spinner animation="border" role="status" size="sm" />}</button>}
-            <p></p>
-            { <button onClick={openSequence}>Ouvrir Sequence</button>}
+            {network !== undefined && <div>
+                <h2>Sequence</h2>
+                {!theButton && <button onClick={connect}>Connexion à Sequence{loader && <Spinner animation="border" role="status" size="sm" />}</button>}
+                <p></p>
+                {isConnect && <button onClick={openSequence}>Ouvrir Sequence</button>}
+            </div>}
+            {network === undefined && <div>
+                <h6>Sélectionner votre réseau:</h6>
+                <button className="thebutton" onClick={() => {setNetwork(0)}}>Goerli</button>
+                <button className="thebutton" onClick={() => {setNetwork(2)}}>Mumbai</button>
+            </div>}
         </div>
     )
 

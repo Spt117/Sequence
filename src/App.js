@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dapp from './Component/Dapp';
-import Init from './Component/Init';
+// import Init from './Component/Init';
 import { useState } from 'react';
 import Sequence from './Component/Sequence';
 
