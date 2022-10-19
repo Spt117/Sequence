@@ -88,8 +88,4 @@ export default function Sequence({ setSet, setGet, setIsConnect, isConnect }) {
             </div>}
         </div>
     )
-
-
-
-
 }
